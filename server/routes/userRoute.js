@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-let Trap = require('../models/Trap');
+
 let Bisection = require('../models/Bisection');
 let FalsePosition = require('../models/FalsePosition');
 let Onepoint = require('../models/Onepoint');
