@@ -11,25 +11,6 @@ let Newton = require('../models/Newton');
 
 /////////////////////////////////////////////////////////////
 
-router.get('/showtrap', function(req, res, next) {
- 
-  Trap.find().sort({age:1}).exec((err,data)=>{
-    console.log(data);
-    return res.json({success:true,data:data});
-  })
-
-});
-
-
-router.post('/addtrap',(req,res)=>{
-  console.log(req.body);
-  let doc = new Trap(req.body);
-  doc.save((err,data)=>{
-    if(err) throw err;
-    res.send({success:true});
-  })
-})
-
 /*----------------- Bisection-------------------------*/
 router.get('/showBisection', function(req, res, next) {
  
