@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import axios from 'axios';
 import './App.css';
 
-import { Table } from 'antd';
+import { Select,Table} from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
 
 import 'antd/dist/antd.css';
 
 const { parse } = require("mathjs");
 const { Column } = Table;
+const { Option } = Select;
 
 function Newton() {
 
@@ -17,6 +19,41 @@ function Newton() {
     const data = []
 
     const [datashow, setdatashow] = useState();
+
+    const [getafcs, setgetafcs] = useState();
+
+
+    const [getafx, setgetafx] = useState();
+    let [getaA, setgetaA] = useState()
+
+   useEffect(() => {
+       axios.get("http://localhost:3001/api/users/showNewton").then(res => {
+
+       const tempfcs = []
+
+       const tempfx = []
+       const tempA = []
+       
+       for (let i = 0; i < res.data.data.length; i++) 
+         {
+            tempfcs.push(<Option key={i} value={i} label={res.data.data[i].fx}>fn : {res.data.data[i].fx} <br/> x0 : {res.data.data[i].a}  </Option>)
+            tempfx.push(res.data.data[i].fx)
+            tempA.push(res.data.data[i].a)
+         }
+       setgetafcs(tempfcs)
+       setgetafx(tempfx)
+       setgetaA(tempA)
+     })
+    },[])
+
+
+    function menu(value)
+   {      
+       setfx(getafx[value])
+       setx(getaA[value])
+
+   }
+
 
     const newton = () => {
       
@@ -98,6 +135,12 @@ function Newton() {
                     <h> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h>
 
                     <button onClick={set}>Auto set</button>
+
+                    <Select defaultValue="set from db" style={{ width: 300 }}  onChange={menu}>
+
+                      {getafcs}
+
+                    </Select>
 
                     <div className = "App-table">
 

@@ -8,7 +8,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from '
 import 'antd/dist/antd.css';
 
 
-
 const { parse } = require("mathjs");
 const { Column } = Table;
 const { Option } = Select;
@@ -31,35 +30,34 @@ function Bisection() {
      let [getaB, setgetaB] = useState()
 
     useEffect(() => {
-      axios.get("http://localhost:3001/api/users/showBisection").then(res => {
+        axios.get("http://localhost:3001/api/users/showBisection").then(res => {
  
-         const tempfcs = []
+        const tempfcs = []
 
         const tempfx = []
         const tempA = []
         const tempB = []
         
-        for (let i = 0; i < res.data.data.length; i++) {
-          tempfcs.push(<Option key={i} value={i} label={res.data.data[i].fx}>fn : {res.data.data[i].fx} <br/> a : {res.data.data[i].a} <br/> b: {res.data.data[i].b} </Option>)
-          tempfx.push(res.data.data[i].fx)
-          tempA.push(res.data.data[i].a)
-          tempB.push(res.data.data[i].b)
-
-        }
+        for (let i = 0; i < res.data.data.length; i++) 
+          {
+             tempfcs.push(<Option key={i} value={i} label={res.data.data[i].fx}>fn : {res.data.data[i].fx} <br/> xl : {res.data.data[i].a} <br/> xr: {res.data.data[i].b} </Option>)
+             tempfx.push(res.data.data[i].fx)
+             tempA.push(res.data.data[i].a)
+             tempB.push(res.data.data[i].b)
+          }
         setgetafcs(tempfcs)
         setgetafx(tempfx)
         setgetaA(tempA)
         setgetaB(tempB)
       })
-    }, [])
+     },[])
 
 
-    function menu(value){
-
-      
-          setfx(getafx[value])
-          setxl(getaA[value])
-          setxr(getaB[value])
+     function menu(value)
+    {      
+        setfx(getafx[value])
+        setxl(getaA[value])
+        setxr(getaB[value])
 
     }
 
@@ -163,7 +161,7 @@ function Bisection() {
 
                            {getafcs}
 
-                       </Select>
+                     </Select>
 
                     <div className = "App-table">
 
